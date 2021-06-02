@@ -1,0 +1,33 @@
+package com.nandits.core.data.source.remote.response.list
+
+data class Result(
+    var added: Int?,
+    var added_by_status: AddedByStatus?,
+    var background_image: String,
+    var clip: Any?,
+    var dominant_color: String?,
+    var esrb_rating: EsrbRating?,
+    var genres: List<Genre>,
+    var id: Int,
+    var metacritic: Int,
+    var name: String,
+    var parent_platforms: List<ParentPlatform>,
+    var platforms: List<PlatformX>?,
+    var playtime: Int?,
+    var rating: Double,
+    var rating_top: Int?,
+    var ratings: List<Rating>,
+    var ratings_count: Int?,
+    var released: String?,
+    var reviews_count: Int?,
+    var reviews_text_count: Int?,
+    var saturated_color: String?,
+    var short_screenshots: List<ShortScreenshot>?,
+    var slug: String?,
+    var stores: List<Store>?,
+    var suggestions_count: Int?,
+    var tags: List<Tag>?,
+    var tba: Boolean?,
+    var updated: String?,
+    var user_game: Any?
+)
