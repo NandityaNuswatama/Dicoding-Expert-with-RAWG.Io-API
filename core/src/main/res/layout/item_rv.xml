@@ -66,7 +66,8 @@
         app:layout_constraintEnd_toStartOf="@+id/tvRating"
         app:layout_constraintTop_toTopOf="@+id/tvRating"
         app:srcCompat="@drawable/icon_star"
-        android:contentDescription="@string/star" />
+        android:contentDescription="@string/star"
+        tools:ignore="RtlSymmetry" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -78,7 +79,8 @@
         app:layout_constraintStart_toEndOf="@+id/tvMeta"
         app:layout_constraintTop_toTopOf="@+id/tvMeta"
         app:srcCompat="@drawable/icon_happy"
-        android:contentDescription="@string/star" />
+        android:contentDescription="@string/star"
+        tools:ignore="RtlSymmetry" />
 
     <ImageView
         android:id="@+id/imgFav"
