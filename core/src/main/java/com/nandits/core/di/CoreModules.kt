@@ -6,6 +6,8 @@ import com.nandits.core.domain.repository.IGameRepository
 import com.nandits.core.ui.GameAdapter
 import com.nandits.core.ui.StringAdapter
 import com.nandits.core.utils.AppExecutors
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -17,8 +19,12 @@ import java.util.concurrent.TimeUnit
 val databaseModule = module {
     factory { get<com.nandits.core.data.source.local.GameDatabase>().gameDao() }
     single {
+        val passphrase: ByteArray = SQLiteDatabase.getBytes("nandits".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(androidContext(), com.nandits.core.data.source.local.GameDatabase::class.java, "Game.dbx")
-            .fallbackToDestructiveMigration().build()
+            .fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
+            .build()
     }
 }
 
