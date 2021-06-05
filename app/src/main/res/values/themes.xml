@@ -27,10 +27,4 @@
     <style name="TextWhite.Small" parent="TextWhite">
         <item name="android:textSize">14sp</item>
     </style>
-    <style name="TextGray" parent="TextWhite">
-        <item name="android:textColor">@color/gray</item>
-    </style>
-    <style name="TextYellow" parent="TextWhite">
-        <item name="android:textColor">@color/yellow</item>
-    </style>
 </resources>

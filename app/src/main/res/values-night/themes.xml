@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.DicodingJetpackPro" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.DicodingJetpackPro" parent="Theme.MaterialComponents.DayNight.NoActionBar" tools:ignore="UnusedResources">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/darker_gray</item>
         <item name="colorPrimaryVariant">@color/blue_A700_darker</item>
@@ -26,11 +26,5 @@
     </style>
     <style name="TextWhite.Small" parent="TextWhite">
         <item name="android:textSize">14sp</item>
-    </style>
-    <style name="TextGray" parent="TextWhite">
-        <item name="android:textColor">@color/gray</item>
-    </style>
-    <style name="TextYellow" parent="TextWhite">
-        <item name="android:textColor">@color/yellow</item>
     </style>
 </resources>
