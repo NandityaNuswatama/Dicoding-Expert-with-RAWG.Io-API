@@ -1,12 +1,15 @@
 package com.nandits.core.di
 
 import androidx.room.Room
+import com.nandits.core.data.source.GameRepository
+import com.nandits.core.data.source.local.LocalDataSource
+import com.nandits.core.data.source.remote.RemoteDataSource
 import com.nandits.core.data.source.remote.network.ApiService
 import com.nandits.core.domain.repository.IGameRepository
 import com.nandits.core.ui.GameAdapter
 import com.nandits.core.ui.StringAdapter
 import com.nandits.core.utils.AppExecutors
-import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SQLiteDatabase.getBytes
 import net.sqlcipher.database.SupportFactory
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
@@ -20,7 +23,7 @@ import java.util.concurrent.TimeUnit
 val databaseModule = module {
     factory { get<com.nandits.core.data.source.local.GameDatabase>().gameDao() }
     single {
-        val passphrase: ByteArray = SQLiteDatabase.getBytes("nandits".toCharArray())
+        val passphrase: ByteArray = getBytes("nandits".toCharArray())
         val factory = SupportFactory(passphrase)
         Room.databaseBuilder(androidContext(), com.nandits.core.data.source.local.GameDatabase::class.java, "Game.dbx")
             .fallbackToDestructiveMigration()
@@ -31,17 +34,10 @@ val databaseModule = module {
 
 val networkModule = module {
     single {
-        val hostname = "api.rawg.io"
-        val certificatePinner = CertificatePinner.Builder()
-            .add(hostname, "sha256/UGwY2lttaRoHnGd1gpeydmov1LzioQpzYTywtNSJkAU=")
-            .add(hostname, "sha256/hS5jJ4P+iQUErBkvoWBQOd1T7VOAYlOVegvv1iMzpxA=")
-            .add(hostname, "sha256/R+V29DqDnO269dFhAAB5jMlZHepWpDGuoejXJjprh7A=")
-            .build()
         OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
-            .certificatePinner(certificatePinner)
             .build()
     }
     single {
@@ -55,10 +51,10 @@ val networkModule = module {
 }
 
 val repositoryModule = module {
-    single { com.nandits.core.data.source.remote.RemoteDataSource(get()) }
-    single { com.nandits.core.data.source.local.LocalDataSource(get()) }
+    single { RemoteDataSource(get()) }
+    single { LocalDataSource(get()) }
     factory { AppExecutors() }
-    single <IGameRepository> { com.nandits.core.data.source.GameRepository(get(), get(), get()) }
+    single <IGameRepository> { GameRepository(get(), get(), get()) }
 }
 
 val adapterModule = module {
